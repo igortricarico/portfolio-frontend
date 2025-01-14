@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/igortricarico/portfolio-frontend.git",
+  "author": "Igor Tricarico <igor_tricarico@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
