@@ -1,18 +1,14 @@
 import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import {
-  AppBar,
-  FormControlLabel,
-  IconButton,
-  Switch,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, IconButton, Switch, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
+import background from "./assets/background.png";
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage?.getItem("lightMode") === "true" ? true : false
+  );
 
   const theme = createTheme({
     palette: {
@@ -20,9 +16,23 @@ function App() {
     },
   });
 
+  const changeMode = () => {
+    localStorage.setItem("lightMode", !isDarkMode);
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <ThemeProvider theme={theme} defaultMode="light">
-      <Box sx={{ flexGrow: 1 }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          backgroundImage: `url(${background})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          minHeight: "100vh",
+        }}
+      >
         <AppBar position="static">
           <Toolbar>
             <IconButton
@@ -38,7 +48,7 @@ function App() {
               Portfolio
             </Typography>
             <Typography>{isDarkMode ? "Escuro" : "Claro"}</Typography>
-            <Switch onChange={() => setIsDarkMode(!isDarkMode)} />
+            <Switch checked={isDarkMode} onChange={changeMode} />
           </Toolbar>
         </AppBar>
       </Box>
