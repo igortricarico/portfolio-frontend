@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Box } from "@mui/system";
+import { ThemeProvider, alpha, createTheme } from "@mui/material/styles";
 import background from "./assets/images/background.png";
 import NavBar from "./components/NavBar/NavBar";
 import { Grid2, Link, Typography } from "@mui/material";
+import AppRoutes from "./components/Routes/Routes";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(
@@ -23,7 +23,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme} defaultMode="light">
-      <Box
+      <Grid2
         sx={{
           flexGrow: 1,
           backgroundImage: `url(${background})`,
@@ -37,26 +37,55 @@ function App() {
           alignItems: "flex-end",
         }}
       >
-        <NavBar isDarkMode={isDarkMode} onChangeDarkMode={changeMode} />
         <Grid2
+          container
           sx={{
-            backgroundColor: "#FFFFFF",
-            borderRadius: "10px",
-            padding: "2px 5px 2px 5px",
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
           }}
         >
-          <Typography>
-            <Link
-              href="https://www.flickr.com/photos/nasawebbtelescope/54088897300/in/album-72177720313923911"
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{ color: "#000000" }}
+          <Grid2>
+            <NavBar isDarkMode={isDarkMode} onChangeDarkMode={changeMode} />
+          </Grid2>
+          <Grid2 size="grow" margin="3rem">
+            <Grid2
+              sx={{
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                backgroundColor: (theme) =>
+                  alpha(theme.palette.background.paper, 0.5),
+                borderRadius: "20px",
+              }}
             >
-              Imagem de JWST
-            </Link>
-          </Typography>
+              <AppRoutes />
+            </Grid2>
+          </Grid2>
+          <Grid2 sx={{ display: "flex", flexDirection: "row-reverse" }}>
+            <Grid2
+              sx={{
+                backgroundColor: (theme) => theme.palette.primary.contrastText,
+                borderRadius: "10px",
+                padding: "2px 5px 2px 5px",
+              }}
+            >
+              <Typography>
+                <Link
+                  href="https://www.flickr.com/photos/nasawebbtelescope/54088897300/in/album-72177720313923911"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{ color: (theme) => theme.palette.primary.main }}
+                >
+                  Imagem de JWST
+                </Link>
+              </Typography>
+            </Grid2>
+          </Grid2>
         </Grid2>
-      </Box>
+      </Grid2>
     </ThemeProvider>
   );
 }
