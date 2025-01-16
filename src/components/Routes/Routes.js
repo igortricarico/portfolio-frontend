@@ -1,6 +1,6 @@
-import { Typography } from "@mui/material";
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Typography } from '@mui/material'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 
 const AppRoutes = () => {
   return (
@@ -10,7 +10,7 @@ const AppRoutes = () => {
       <Route path="/contact" element={<Typography>Contato</Typography>} />
       <Route path="*" element={<Typography>Rota não encontrada</Typography>} />
     </Routes>
-  );
-};
+  )
+}
 
-export default AppRoutes;
+export default AppRoutes

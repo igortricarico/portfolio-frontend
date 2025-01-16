@@ -14,6 +14,7 @@ import {
   ListItemText,
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const NavBarItems = ({ setOpen, isDarkMode, onChangeDarkMode }) => {
   const navigate = useNavigate()
@@ -59,6 +60,12 @@ const NavBarItems = ({ setOpen, isDarkMode, onChangeDarkMode }) => {
       </List>
     </Box>
   )
+}
+
+NavBarItems.propTypes = {
+  setOpen: PropTypes.func.isRequired,
+  isDarkMode: PropTypes.bool.isRequired,
+  onChangeDarkMode: PropTypes.func.isRequired,
 }
 
 export default NavBarItems

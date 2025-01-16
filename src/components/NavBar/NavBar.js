@@ -2,6 +2,7 @@ import { AppBar, Drawer, IconButton, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import NavBarItems from './NavBarItems'
+import PropTypes from 'prop-types'
 
 const NavBar = ({ isDarkMode, onChangeDarkMode }) => {
   const [open, setOpen] = React.useState(false)
@@ -38,6 +39,11 @@ const NavBar = ({ isDarkMode, onChangeDarkMode }) => {
       </AppBar>
     </>
   )
+}
+
+NavBar.propTypes = {
+  isDarkMode: PropTypes.bool.isRequired,
+  onChangeDarkMode: PropTypes.func.isRequired,
 }
 
 export default NavBar
