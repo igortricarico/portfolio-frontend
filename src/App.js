@@ -1,25 +1,25 @@
 import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { AppBar, IconButton, Switch, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import MenuIcon from "@mui/icons-material/Menu";
-import background from "./assets/background.png";
+import background from "./assets/images/background.png";
+import NavBar from "./components/NavBar/NavBar";
+import { Grid2, Link, Typography } from "@mui/material";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage?.getItem("lightMode") === "true" ? true : false
   );
 
+  const changeMode = () => {
+    localStorage.setItem("lightMode", !isDarkMode);
+    setIsDarkMode(!isDarkMode);
+  };
+
   const theme = createTheme({
     palette: {
       mode: isDarkMode ? "dark" : "light",
     },
   });
-
-  const changeMode = () => {
-    localStorage.setItem("lightMode", !isDarkMode);
-    setIsDarkMode(!isDarkMode);
-  };
 
   return (
     <ThemeProvider theme={theme} defaultMode="light">
@@ -31,26 +31,31 @@ function App() {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
         }}
       >
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
+        <NavBar isDarkMode={isDarkMode} onChangeDarkMode={changeMode} />
+        <Grid2
+          sx={{
+            backgroundColor: "#FFFFFF",
+            borderRadius: "10px",
+            padding: "2px 5px 2px 5px",
+          }}
+        >
+          <Typography>
+            <Link
+              href="https://www.flickr.com/photos/nasawebbtelescope/54088897300/in/album-72177720313923911"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ color: "#000000" }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Portfolio
-            </Typography>
-            <Typography>{isDarkMode ? "Escuro" : "Claro"}</Typography>
-            <Switch checked={isDarkMode} onChange={changeMode} />
-          </Toolbar>
-        </AppBar>
+              Imagem de JWST
+            </Link>
+          </Typography>
+        </Grid2>
       </Box>
     </ThemeProvider>
   );
