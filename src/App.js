@@ -1,3 +1,4 @@
+import { TYPOGRAPHY_CONFIGURATION } from './utills/Constants'
 import { useState } from 'react'
 import { ThemeProvider, alpha, createTheme } from '@mui/material/styles'
 import background from './assets/images/background.png'
@@ -21,6 +22,7 @@ function App() {
     palette: {
       mode: isDarkMode ? 'dark' : 'light',
     },
+    typography: TYPOGRAPHY_CONFIGURATION,
   })
 
   return (
@@ -33,7 +35,7 @@ function App() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            minHeight: '100vh',
+            backgroundAttachment: 'fixed',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -48,6 +50,8 @@ function App() {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
+              flexWrap: 'nowrap',
+              overflow: 'auto',
             }}
           >
             <Grid2>
