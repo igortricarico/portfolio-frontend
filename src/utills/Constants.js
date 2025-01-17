@@ -1,8 +1,11 @@
-import JavascriptIcon from '@mui/icons-material/Javascript'
-import CodeIcon from '@mui/icons-material/Code'
 import ApiIcon from '@mui/icons-material/Api'
-import StorageIcon from '@mui/icons-material/Storage'
+import CodeIcon from '@mui/icons-material/Code'
+import EmailIcon from '@mui/icons-material/Email'
+import HomeIcon from '@mui/icons-material/Home'
+import InfoIcon from '@mui/icons-material/Info'
+import JavascriptIcon from '@mui/icons-material/Javascript'
 import React from 'react'
+import StorageIcon from '@mui/icons-material/Storage'
 
 export const TYPOGRAPHY_CONFIGURATION = {
   h1: {
@@ -43,7 +46,16 @@ export const TYPOGRAPHY_CONFIGURATION = {
   },
 }
 
-export const NAV_BAR_ITEMS = []
+export const NAV_BAR_ITEMS = [
+  { name: 'home', label: 'Início', icon: <HomeIcon />, path: '/' },
+  { name: 'about', label: 'Sobre', icon: <InfoIcon />, path: '/about' },
+  {
+    name: 'contact',
+    label: 'Contato',
+    icon: <EmailIcon />,
+    path: '/contact',
+  },
+]
 
 export const HOME_LIST_ITEMS = [
   {

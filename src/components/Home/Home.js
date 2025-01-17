@@ -4,26 +4,18 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Paper,
   Typography,
 } from '@mui/material'
 import React from 'react'
 import { HOME_LIST_ITEMS } from '../../utills/Constants'
+import PaperBackground from '../Shared/PaperBackground/PaperBackground'
 
 const Home = () => {
   const listItemVariant = 'h5'
   const iconSize = 50
 
   return (
-    <Paper
-      elevation={4}
-      sx={{
-        width: '100%',
-        margin: '1rem',
-        padding: '1rem',
-        borderRadius: '20px',
-      }}
-    >
+    <PaperBackground>
       <Grid2
         container
         sx={{
@@ -40,10 +32,9 @@ const Home = () => {
         </Grid2>
         <Grid2>
           <Typography variant="h4">
-            Meu nome é Igor, sou desenvolvedor desde 2020 e o objetivo deste
-            projeto é colocar em prática todos os meus conhecimentos adquiridos
-            ao longo dos anos. Abaixo, deixo uma lista com alguns detalhes
-            técnicos.
+            O objetivo deste projeto é colocar em prática todos os meus
+            conhecimentos adquiridos ao longo dos anos. Abaixo, deixo uma lista
+            com alguns detalhes técnicos.
           </Typography>
         </Grid2>
         <Grid2 size="grow" sx={{ display: 'flex', alignItems: 'center' }}>
@@ -61,7 +52,7 @@ const Home = () => {
           </List>
         </Grid2>
       </Grid2>
-    </Paper>
+    </PaperBackground>
   )
 }
 

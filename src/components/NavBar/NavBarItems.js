@@ -1,9 +1,3 @@
-import React from 'react'
-import HomeIcon from '@mui/icons-material/Home'
-import InfoIcon from '@mui/icons-material/Info'
-import EmailIcon from '@mui/icons-material/Email'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import LightModeIcon from '@mui/icons-material/LightMode'
 import {
   Box,
   Divider,
@@ -13,8 +7,13 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import { NAV_BAR_ITEMS } from '../../utills/Constants'
 import PropTypes from 'prop-types'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const NavBarItems = ({ setOpen, isDarkMode, onChangeDarkMode }) => {
   const navigate = useNavigate()
@@ -24,21 +23,10 @@ const NavBarItems = ({ setOpen, isDarkMode, onChangeDarkMode }) => {
     navigate(path)
   }
 
-  const items = [
-    { name: 'home', label: 'Início', icon: <HomeIcon />, path: '/' },
-    { name: 'about', label: 'Sobre', icon: <InfoIcon />, path: '/about' },
-    {
-      name: 'contact',
-      label: 'Contato',
-      icon: <EmailIcon />,
-      path: '/contact',
-    },
-  ]
-
   return (
     <Box sx={{ width: 250 }} role="presentation">
       <List>
-        {items.map(({ name, label, icon, path }) => (
+        {NAV_BAR_ITEMS.map(({ name, label, icon, path }) => (
           <ListItem key={name} disablePadding>
             <ListItemButton onClick={handleItemSelection(path)}>
               <ListItemIcon>{icon}</ListItemIcon>
