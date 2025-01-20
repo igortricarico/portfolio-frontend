@@ -11,11 +11,12 @@ import {
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import { NAV_BAR_ITEMS } from '../../utills/Constants'
+import PanoramaIcon from '@mui/icons-material/Panorama'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const NavBarItems = ({ setOpen, isDarkMode, onChangeDarkMode }) => {
+const NavBarItems = ({ setOpen, isDarkMode, changeMode }) => {
   const navigate = useNavigate()
 
   const handleItemSelection = (path) => () => {
@@ -24,7 +25,7 @@ const NavBarItems = ({ setOpen, isDarkMode, onChangeDarkMode }) => {
   }
 
   return (
-    <Box sx={{ width: 250 }} role="presentation">
+    <Box sx={{ maxWidth: '20rem' }} role="presentation">
       <List>
         {NAV_BAR_ITEMS.map(({ name, label, icon, path }) => (
           <ListItem key={name} disablePadding>
@@ -38,11 +39,24 @@ const NavBarItems = ({ setOpen, isDarkMode, onChangeDarkMode }) => {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton onClick={onChangeDarkMode}>
+          <ListItemButton onClick={() => changeMode('theme')}>
             <ListItemIcon>
               {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
             </ListItemIcon>
             <ListItemText>Tema</ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={() => {
+              changeMode('background')
+              setOpen(false)
+            }}
+          >
+            <ListItemIcon>
+              <PanoramaIcon />
+            </ListItemIcon>
+            <ListItemText>Visualizar plano de fundo</ListItemText>
           </ListItemButton>
         </ListItem>
       </List>
@@ -53,7 +67,7 @@ const NavBarItems = ({ setOpen, isDarkMode, onChangeDarkMode }) => {
 NavBarItems.propTypes = {
   setOpen: PropTypes.func.isRequired,
   isDarkMode: PropTypes.bool.isRequired,
-  onChangeDarkMode: PropTypes.func.isRequired,
+  changeMode: PropTypes.func.isRequired,
 }
 
 export default NavBarItems

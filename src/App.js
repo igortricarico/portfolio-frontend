@@ -1,21 +1,24 @@
-import { TYPOGRAPHY_CONFIGURATION } from './utills/Constants'
-import { useState } from 'react'
-import { ThemeProvider, alpha, createTheme } from '@mui/material/styles'
-import background from './assets/images/background.png'
-import NavBar from './components/NavBar/NavBar'
 import { Grid2, Link, Typography } from '@mui/material'
+import { ThemeProvider, alpha, createTheme } from '@mui/material/styles'
+
 import AppRoutes from './components/Routes/Routes'
 import { BrowserRouter } from 'react-router-dom'
+import NavBar from './components/NavBar/NavBar'
 import React from 'react'
+import { TYPOGRAPHY_CONFIGURATION } from './utills/Constants'
+import background from './assets/images/background.png'
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(
+  const [isDarkMode, setIsDarkMode] = React.useState(
     localStorage?.getItem('lightMode') === 'true' ? true : false
   )
+  const [viewBackground, setViewBackground] = React.useState(false)
 
-  const changeMode = () => {
-    localStorage.setItem('lightMode', !isDarkMode)
-    setIsDarkMode(!isDarkMode)
+  const changeMode = (id) => {
+    if (id === 'theme') {
+      localStorage.setItem('lightMode', !isDarkMode)
+      setIsDarkMode(!isDarkMode)
+    } else if (id === 'background') setViewBackground(!viewBackground)
   }
 
   const theme = createTheme({
@@ -55,22 +58,24 @@ function App() {
             }}
           >
             <Grid2>
-              <NavBar isDarkMode={isDarkMode} onChangeDarkMode={changeMode} />
+              <NavBar isDarkMode={isDarkMode} changeMode={changeMode} />
             </Grid2>
-            <Grid2 size="grow" margin="3rem">
-              <Grid2
-                sx={{
-                  height: '100%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  backgroundColor: (theme) =>
-                    alpha(theme.palette.background.paper, 0.5),
-                  borderRadius: '20px',
-                }}
-              >
-                <AppRoutes />
+            {!viewBackground && (
+              <Grid2 size="grow" margin="3rem">
+                <Grid2
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    backgroundColor: (theme) =>
+                      alpha(theme.palette.background.paper, 0.5),
+                    borderRadius: '20px',
+                  }}
+                >
+                  <AppRoutes />
+                </Grid2>
               </Grid2>
-            </Grid2>
+            )}
             <Grid2 sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <Grid2
                 sx={{
