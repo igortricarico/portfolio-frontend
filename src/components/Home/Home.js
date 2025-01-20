@@ -6,11 +6,14 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material'
-import React from 'react'
-import { HOME_LIST_ITEMS } from '../../utills/Constants'
+
+import { HOME_LIST_ICONS } from '../../utills/Constants'
 import PaperBackground from '../Shared/PaperBackground/PaperBackground'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const Home = () => {
+  const { t } = useTranslation('Home')
   const listItemVariant = 'h5'
   const iconSize = 50
 
@@ -28,24 +31,22 @@ const Home = () => {
         spacing={3}
       >
         <Grid2>
-          <Typography variant="h1">Olá, mundo.</Typography>
+          <Typography variant="h1">{t('Title')}</Typography>
         </Grid2>
         <Grid2>
-          <Typography variant="h4">
-            O objetivo deste projeto é colocar em prática todos os meus
-            conhecimentos adquiridos ao longo dos anos. Abaixo, deixo uma lista
-            com alguns detalhes técnicos.
-          </Typography>
+          <Typography variant="h4">{t('SubTitle')}</Typography>
         </Grid2>
         <Grid2 size="grow" sx={{ display: 'flex', alignItems: 'center' }}>
           <List>
-            {HOME_LIST_ITEMS.map(({ label, icon: Icon }, index) => (
+            {HOME_LIST_ICONS.map(({ icon: Icon }, index) => (
               <ListItem key={index}>
                 <ListItemIcon>
                   <Icon sx={{ fontSize: iconSize }} />
                 </ListItemIcon>
                 <ListItemText>
-                  <Typography variant={listItemVariant}>{label}</Typography>
+                  <Typography variant={listItemVariant}>
+                    {t(`List.${index}`)}
+                  </Typography>
                 </ListItemText>
               </ListItem>
             ))}

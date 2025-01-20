@@ -1,18 +1,37 @@
 import { Grid2, Link, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { ThemeProvider, alpha, createTheme } from '@mui/material/styles'
 
 import AppRoutes from './components/Routes/Routes'
 import { BrowserRouter } from 'react-router-dom'
 import NavBar from './components/NavBar/NavBar'
-import React from 'react'
 import { TYPOGRAPHY_CONFIGURATION } from './utills/Constants'
 import background from './assets/images/background.png'
+import i18n from './i18n'
+import { useTranslation } from 'react-i18next'
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = React.useState(
+  const [viewBackground, setViewBackground] = useState(false)
+  const [i18nInitialized, setI18nInitialized] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(
     localStorage?.getItem('lightMode') === 'true' ? true : false
   )
-  const [viewBackground, setViewBackground] = React.useState(false)
+
+  const { t } = useTranslation()
+
+  useEffect(() => {
+    if (i18n.isInitialized) {
+      setI18nInitialized(true)
+    } else {
+      const handleI18nInitialized = () => {
+        setI18nInitialized(true)
+      }
+      i18n.on('initialized', handleI18nInitialized)
+      return () => {
+        i18n.off('initialized', handleI18nInitialized)
+      }
+    }
+  }, [])
 
   const changeMode = (id) => {
     if (id === 'theme') {
@@ -27,6 +46,8 @@ function App() {
     },
     typography: TYPOGRAPHY_CONFIGURATION,
   })
+
+  if (!i18nInitialized) return null
 
   return (
     <ThemeProvider theme={theme} defaultMode="light">
@@ -92,7 +113,7 @@ function App() {
                     rel="noopener noreferrer"
                     sx={{ color: (theme) => theme.palette.primary.main }}
                   >
-                    Imagem de JWST
+                    {t('BackgroundImage')}
                   </Link>
                 </Typography>
               </Grid2>

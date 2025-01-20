@@ -1,0 +1,10 @@
+{
+  "Title": "Hola, Mundo.",
+  "SubTitle": "El objetivo de este proyecto es poner en práctica todos los conocimientos que he adquirido a lo largo de los años. A continuación, presento una lista con algunos detalles técnicos.",
+  "List": {
+    "0": "Frontend desarrollado en JavaScript utilizando el framework React. Alojamiento realizado a través de Vercel.",
+    "1": "Backend desarrollado en Python utilizando el framework (framework aquí). Alojamiento realizado a través de Render.",
+    "2": "Comunicación realizada mediante una API RESTful.",
+    "3": "Base de datos PostgreSQL."
+  }
+}

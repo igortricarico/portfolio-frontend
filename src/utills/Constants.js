@@ -62,23 +62,17 @@ export const NAV_BAR_ITEMS = [
   },
 ]
 
-export const HOME_LIST_ITEMS = [
+export const HOME_LIST_ICONS = [
   {
-    label:
-      'Frontend desenvolvido em JavaScript, utilizando o framework React. Hospedagem realizada através do Vercel',
     icon: (props) => <JavascriptIcon {...props} />,
   },
   {
-    label:
-      'Backend desenvolvido em Python, utilizando o framework (framework aqui). Hospedagem realizada através do Render',
     icon: (props) => <CodeIcon {...props} />,
   },
   {
-    label: 'Comunicação realizada via API RESTful',
     icon: (props) => <ApiIcon {...props} />,
   },
   {
-    label: 'Banco de dados PostgreSQL.',
     icon: (props) => <StorageIcon {...props} />,
   },
 ]
