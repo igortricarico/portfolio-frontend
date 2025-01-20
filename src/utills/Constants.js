@@ -1,8 +1,8 @@
 import ApiIcon from '@mui/icons-material/Api'
+import ChecklistIcon from '@mui/icons-material/Checklist'
 import CodeIcon from '@mui/icons-material/Code'
 import EmailIcon from '@mui/icons-material/Email'
 import HomeIcon from '@mui/icons-material/Home'
-import InfoIcon from '@mui/icons-material/Info'
 import JavascriptIcon from '@mui/icons-material/Javascript'
 import React from 'react'
 import StorageIcon from '@mui/icons-material/Storage'
@@ -48,7 +48,12 @@ export const TYPOGRAPHY_CONFIGURATION = {
 
 export const NAV_BAR_ITEMS = [
   { name: 'home', label: 'Início', icon: <HomeIcon />, path: '/' },
-  { name: 'about', label: 'Sobre', icon: <InfoIcon />, path: '/about' },
+  {
+    name: 'todolist',
+    label: 'Lista de À Fazeres',
+    icon: <ChecklistIcon />,
+    path: '/todolist',
+  },
   {
     name: 'contact',
     label: 'Contato',
