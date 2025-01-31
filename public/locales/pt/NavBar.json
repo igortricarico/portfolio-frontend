@@ -1,0 +1,9 @@
+{
+  "NavBarItems": {
+    "Home": "Página Inicial",
+    "ToDoList": "Lista de Afazeres"
+  },
+  "Theme": "Alterar tema",
+  "Language": "Alterar idioma",
+  "ViewBackground": "Visualizar plano de fundo"
+}

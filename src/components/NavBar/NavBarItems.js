@@ -17,10 +17,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import TranslateIcon from '@mui/icons-material/Translate'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const NavBarItems = ({ setOpen, isDarkMode, changeMode }) => {
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null)
+  const { t } = useTranslation(['NavBar'])
 
   const handleItemSelection = (path) => () => {
     setOpen(false)
@@ -31,11 +33,11 @@ const NavBarItems = ({ setOpen, isDarkMode, changeMode }) => {
     <Box sx={{ maxWidth: '20rem' }} role="presentation">
       <ChangeLanguageMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
       <List>
-        {NAV_BAR_ITEMS.map(({ name, label, icon, path }) => (
+        {NAV_BAR_ITEMS.map(({ name, icon, path }) => (
           <ListItem key={name} disablePadding>
             <ListItemButton onClick={handleItemSelection(path)}>
               <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={label} />
+              <ListItemText primary={t(`NavBarItems.${name}`)} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -47,7 +49,7 @@ const NavBarItems = ({ setOpen, isDarkMode, changeMode }) => {
             <ListItemIcon>
               {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
             </ListItemIcon>
-            <ListItemText>Alterar tema</ListItemText>
+            <ListItemText>{t('Theme')}</ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
@@ -55,7 +57,7 @@ const NavBarItems = ({ setOpen, isDarkMode, changeMode }) => {
             <ListItemIcon>
               <TranslateIcon />
             </ListItemIcon>
-            <ListItemText>Alterar idioma</ListItemText>
+            <ListItemText>{t('Language')}</ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
@@ -68,7 +70,7 @@ const NavBarItems = ({ setOpen, isDarkMode, changeMode }) => {
             <ListItemIcon>
               <PanoramaIcon />
             </ListItemIcon>
-            <ListItemText>Visualizar plano de fundo</ListItemText>
+            <ListItemText>{t('ViewBackground')}</ListItemText>
           </ListItemButton>
         </ListItem>
       </List>
