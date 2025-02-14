@@ -1,14 +1,15 @@
-import { Typography } from '@mui/material'
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
+
 import Home from '../Home/Home'
+import React from 'react'
+import ToDoList from '../ToDoList/ToDoList'
+import { Typography } from '@mui/material'
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/about" element={<Typography>Sobre</Typography>} />
-      <Route path="/contact" element={<Typography>Contato</Typography>} />
+      <Route path="/todolist" element={<ToDoList />} />
       <Route path="*" element={<Typography>Rota não encontrada</Typography>} />
     </Routes>
   )

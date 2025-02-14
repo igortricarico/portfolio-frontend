@@ -13,7 +13,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Home = () => {
-  const { t } = useTranslation('Home')
+  const { t } = useTranslation(['Home'])
   const listItemVariant = 'h5'
   const iconSize = 50
 
