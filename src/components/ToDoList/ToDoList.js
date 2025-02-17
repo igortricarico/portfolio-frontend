@@ -1,4 +1,4 @@
-import { Button, Grid2 } from '@mui/material'
+import { Button, Grid2, Typography } from '@mui/material'
 import { useFieldArray, useForm } from 'react-hook-form'
 
 import InputElement from '../Shared/FormElements/InputElement'
@@ -6,17 +6,21 @@ import PaperBackground from '../Shared/PaperBackground/PaperBackground'
 import React from 'react'
 
 const ToDoList = () => {
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, getValues } = useForm({
     defaultValues: {
-      items: [{ description: '' }], // Array inicial com estrutura de item
+      description: '',
+      items: [],
     },
   })
 
-  const { fields, append, remove } = useFieldArray({ control, name: 'items' })
+  const { fields, append, remove } = useFieldArray({
+    control: control,
+    name: 'items',
+  })
 
   const onSubmit = (data) => {
-    append({ description: data.description }) // Adiciona um novo item com descrição
-    reset({ description: '' }) // Limpa o campo de input após a submissão
+    append({ description: data.description })
+    reset({ ...getValues(), description: '' })
   }
 
   return (
@@ -30,7 +34,6 @@ const ToDoList = () => {
         columnSpacing={2}
         onSubmit={handleSubmit(onSubmit)}
       >
-        {/* Campo de entrada de descrição */}
         <Grid2 size={12}>
           <InputElement
             control={control}
@@ -43,16 +46,12 @@ const ToDoList = () => {
             }}
           />
         </Grid2>
-
-        {/* Botão de envio */}
         <Grid2 size={12} display="flex" justifyContent="flex-end">
           <Button type="submit">Submit</Button>
         </Grid2>
-
-        {/* Lista de itens */}
         {fields.map((field, index) => (
           <Grid2 key={field.id} size={12}>
-            <p>{field.description}</p>
+            <Typography>{field.description}</Typography>
             <Button onClick={() => remove(index)}>Remover</Button>
           </Grid2>
         ))}
