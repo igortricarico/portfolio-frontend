@@ -16,7 +16,7 @@ function App() {
   const [viewBackground, setViewBackground] = useState(false)
   const [i18nInitialized, setI18nInitialized] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(
-    localStorage?.getItem('lightMode') === 'true' ? true : false
+    localStorage?.getItem('darkMode') === 'true' ? true : false
   )
 
   const { t } = useTranslation()
@@ -37,7 +37,7 @@ function App() {
 
   const changeMode = (id) => {
     if (id === 'theme') {
-      localStorage.setItem('lightMode', !isDarkMode)
+      localStorage.setItem('darkMode', !isDarkMode)
       setIsDarkMode(!isDarkMode)
     } else if (id === 'background') setViewBackground(!viewBackground)
   }
