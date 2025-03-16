@@ -19,7 +19,7 @@ function App() {
     localStorage?.getItem('darkMode') === 'true' ? true : false
   )
 
-  const { t } = useTranslation()
+  const { t } = useTranslation(['Common'])
 
   useEffect(() => {
     if (i18n.isInitialized) {
