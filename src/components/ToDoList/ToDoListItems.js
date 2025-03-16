@@ -15,7 +15,9 @@ const ToDoListItems = ({ fields, onRemove }) => {
       {fields.map((field, index) => {
         const { description, category } = field
 
-        const displayCategory = categories.find((item) => item.id === category)
+        const displayCategory = categories.find(
+          (item) => item.categoryId === category
+        )
 
         return (
           <Grid2
