@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 const ToDoListForm = () => {
   const { t } = useTranslation(['Common'])
   const [categories, setCategories] = React.useState([
-    { id: '1', name: 'Geral', color: '#fff' },
+    { categoryId: '1', name: 'General', color: '#fff' },
   ])
 
   const { control, handleSubmit, reset, getValues } = useForm({
@@ -76,11 +76,14 @@ const ToDoListForm = () => {
               select: true,
             }}
           >
-            {categories.map(({ id, name }) => (
-              <MenuItem key={id} value={id}>
-                {t(name)}
-              </MenuItem>
-            ))}
+            {categories.map(({ categoryId, name, active = true }) => {
+              if (active === true)
+                return (
+                  <MenuItem key={categoryId} value={categoryId}>
+                    {t(name)}
+                  </MenuItem>
+                )
+            })}
           </InputElement>
         </Grid2>
         <Grid2 size={12}>

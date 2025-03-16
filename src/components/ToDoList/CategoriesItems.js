@@ -4,17 +4,17 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-const CategoriesItems = ({ fields, onRemove }) => {
+const CategoriesItems = ({ fields, onUpdate }) => {
   const { t } = useTranslation(['Common'])
 
   return (
     <Grid2 sx={{ maxHeight: '50vh', overflowY: 'auto' }}>
       {fields.map((field, index) => {
-        const { id, name, color } = field
+        const { categoryId, name, color, active } = field
 
         return (
           <Grid2
-            key={id}
+            key={categoryId}
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
@@ -32,7 +32,9 @@ const CategoriesItems = ({ fields, onRemove }) => {
                 <Box sx={{ backgroundColor: color, height: '1.5vh' }} />
               </Grid2>
             </Grid2>
-            <Button onClick={() => onRemove(index)}>{t('Remove')}</Button>
+            <Button onClick={() => onUpdate(index, field)}>
+              {active ? t('Deactivate') : t('Activate')}
+            </Button>
           </Grid2>
         )
       })}
@@ -42,7 +44,7 @@ const CategoriesItems = ({ fields, onRemove }) => {
 
 CategoriesItems.propTypes = {
   fields: PropTypes.array.isRequired,
-  onRemove: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
 }
 
 export default CategoriesItems

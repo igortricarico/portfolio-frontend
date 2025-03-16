@@ -33,7 +33,7 @@ const ToDoListItems = ({ fields, onRemove }) => {
                 <Typography marginRight="1vh">{`${t('Description')}:`}</Typography>
               </Grid2>
               <Grid2 display="flex" flexDirection="column">
-                <Typography>{displayCategory?.name || 'Geral'}</Typography>
+                <Typography>{displayCategory?.name || t('General')}</Typography>
                 <Typography>{description}</Typography>
               </Grid2>
             </Grid2>

@@ -1,7 +1,10 @@
 {
   "BackgroundImage": "Imagem por JWST",
+  "General": "Geral",
   "Add": "Adicionar",
   "Remove": "Remover",
+  "Activate": "Ativar",
+  "Deactivate": "Desativar",
   "Color": "Cor",
   "Name": "Nome",
   "Description": "Descrição",

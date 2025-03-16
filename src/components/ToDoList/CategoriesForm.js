@@ -19,15 +19,20 @@ const CategoriesForm = () => {
     },
   })
 
-  const { fields, append, remove, replace } = useFieldArray({
+  const { fields, append, update, replace } = useFieldArray({
     control: control,
     name: 'categories',
   })
 
   React.useEffect(() => {
-    if (localStorage.getItem('categories'))
+    if (localStorage.getItem('categories')) {
       replace(JSON.parse(localStorage.getItem('categories')))
+    }
   }, [])
+
+  React.useEffect(() => {
+    localStorage.setItem('categories', JSON.stringify(getValues().categories))
+  }, [fields])
 
   const onSubmit = (data) => {
     const { name, color } = data
@@ -36,16 +41,14 @@ const CategoriesForm = () => {
       return
     }
 
-    const id = crypto.randomUUID()
+    const categoryId = crypto.randomUUID()
 
-    append({ id, name, color })
-    localStorage.setItem('categories', JSON.stringify(getValues().categories))
+    append({ categoryId, name, color, active: true })
     reset({ ...getValues(), name: '', color: '#fff' })
   }
 
-  const onRemove = (index) => {
-    remove(index)
-    localStorage.setItem('categories', JSON.stringify(getValues().categories))
+  const onUpdate = (index, item) => {
+    update(index, { ...item, active: !item.active })
   }
 
   return (
@@ -74,7 +77,7 @@ const CategoriesForm = () => {
           <Button type="submit">{t('Add')}</Button>
         </Grid2>
       </Grid2>
-      <CategoriesItems fields={fields} onRemove={onRemove} />
+      <CategoriesItems fields={fields} onUpdate={onUpdate} />
     </>
   )
 }
