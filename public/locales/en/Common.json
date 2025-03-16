@@ -1,3 +1,9 @@
 {
-  "BackgroundImage": "Image by JWST"
+  "BackgroundImage": "Image by JWST",
+  "Add": "Add",
+  "Remove": "Remove",
+  "Color": "Color",
+  "Name": "Name",
+  "Description": "Description",
+  "Category": "Category"
 }

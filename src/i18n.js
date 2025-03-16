@@ -18,7 +18,7 @@ i18n
     fallbackLng: 'pt',
     debug: false,
 
-    ns: ['Common', 'Home', 'NavBar'],
+    ns: ['Errors', 'Common', 'Home', 'NavBar'],
     defaultNs: 'Common',
     nsSeparator: ':',
     keySeparator: '.',

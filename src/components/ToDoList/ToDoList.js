@@ -1,91 +1,34 @@
-import { Button, Grid2, MenuItem, Typography } from '@mui/material'
-import { useFieldArray, useForm } from 'react-hook-form'
+import { Box, Tab } from '@mui/material'
+import { TabContext, TabList, TabPanel } from '@mui/lab'
 
-import InputElement from '../Shared/FormElements/InputElement'
+import CategoriesForm from './CategoriesForm'
 import PaperBackground from '../Shared/PaperBackground/PaperBackground'
 import React from 'react'
-import { TO_DO_LIST_CATEGORIES } from '../../utills/Constants'
-import { useTranslation } from 'react-i18next'
+import ToDoListForm from './ToDoListForm'
 
 const ToDoList = () => {
-  const { t } = useTranslation(['ToDoList'])
+  const [value, setValue] = React.useState('1')
 
-  const { control, handleSubmit, reset, getValues } = useForm({
-    defaultValues: {
-      description: '',
-      category: 'personal',
-      items: [],
-    },
-  })
-
-  const { fields, append, remove } = useFieldArray({
-    control: control,
-    name: 'items',
-  })
-
-  const onSubmit = (data) => {
-    const { description, category } = data
-
-    append({ description: description, category: category })
-    reset({ ...getValues(), description: '', category: 'personal' })
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
   }
 
   return (
     <PaperBackground>
-      <Grid2
-        container
-        component="form"
-        display="flex"
-        flexDirection="row"
-        rowSpacing={2}
-        columnSpacing={2}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Grid2 size={12}>
-          <InputElement
-            control={control}
-            name="description"
-            label="Descrição"
-            textFieldProps={{
-              variant: 'outlined',
-              multiline: true,
-              rows: 4,
-            }}
-          />
-        </Grid2>
-        <Grid2 size={12}>
-          <InputElement
-            control={control}
-            name="category"
-            label="Categoria"
-            textFieldProps={{
-              variant: 'outlined',
-              rows: 4,
-              select: true,
-            }}
-          >
-            {TO_DO_LIST_CATEGORIES.map((category, index) => (
-              <MenuItem key={index} value={category}>
-                {t(category)}
-              </MenuItem>
-            ))}
-          </InputElement>
-        </Grid2>
-        <Grid2 size={12} display="flex" justifyContent="flex-end">
-          <Button type="submit">Submit</Button>
-        </Grid2>
-        {fields.map((field, index) => {
-          const { id, description, category } = field
-
-          return (
-            <Grid2 key={id} size={12}>
-              <Typography>{description}</Typography>
-              <Typography>{t(category)}</Typography>
-              <Button onClick={() => remove(index)}>Remover</Button>
-            </Grid2>
-          )
-        })}
-      </Grid2>
+      <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <Tab label="Tarefas" value="1" />
+            <Tab label="Categorias" value="2" />
+          </TabList>
+        </Box>
+        <TabPanel value="1">
+          <ToDoListForm />
+        </TabPanel>
+        <TabPanel value="2">
+          <CategoriesForm />
+        </TabPanel>
+      </TabContext>
     </PaperBackground>
   )
 }

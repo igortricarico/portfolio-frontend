@@ -1,3 +1,9 @@
 {
-  "BackgroundImage": "Imagen por JWST"
+  "BackgroundImage": "Imagen por JWST",
+  "Add": "Agregar",
+  "Remove": "Eliminar",
+  "Color": "Color",
+  "Name": "Nombre",
+  "Description": "Descripción",
+  "Category": "Categoria"
 }

@@ -1,3 +1,5 @@
+import 'toastr/build/toastr.min.css'
+
 import { Grid2, Link, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { ThemeProvider, alpha, createTheme } from '@mui/material/styles'

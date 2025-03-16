@@ -68,5 +68,3 @@ export const HOME_LIST_ICONS = [
     icon: (props) => <StorageIcon {...props} />,
   },
 ]
-
-export const TO_DO_LIST_CATEGORIES = ['personal', 'professional', 'academic']
