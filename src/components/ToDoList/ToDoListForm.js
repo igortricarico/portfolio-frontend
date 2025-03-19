@@ -1,57 +1,54 @@
 import { Button, Grid2, MenuItem } from '@mui/material'
-import { useFieldArray, useForm } from 'react-hook-form'
 
 import InputElement from '../Shared/FormElements/InputElement'
 import React from 'react'
 import ToDoListItems from './ToDoListItems'
 import toastr from 'toastr'
+import { useForm } from 'react-hook-form'
+import useToDoListStore from '../../stores/useToDoListStore'
 import { useTranslation } from 'react-i18next'
 
 const ToDoListForm = () => {
   const { t } = useTranslation(['Common'])
-  const [categories, setCategories] = React.useState([
-    { categoryId: '1', name: 'General', color: '#fff' },
-  ])
+  const { tasks, categories, fetchTasks, addTask, removeTask, setCategories } =
+    useToDoListStore()
 
-  const { control, handleSubmit, reset, getValues } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       description: '',
       category: '1',
-      items: [],
     },
   })
 
-  const { fields, append, remove, replace } = useFieldArray({
-    control: control,
-    name: 'items',
-  })
+  const ErrorCallback = () => {
+    toastr.error('Erro de comunicação com o servidor')
+  }
 
   React.useEffect(() => {
-    if (localStorage.getItem('items'))
-      replace(JSON.parse(localStorage.getItem('items')))
+    fetchTasks(() => ErrorCallback())
 
-    if (localStorage.getItem('categories'))
-      setCategories([
-        ...categories,
-        ...JSON.parse(localStorage.getItem('categories')),
-      ])
+    if (localStorage.getItem('categories')) {
+      const storedCategories = JSON.parse(localStorage.getItem('categories'))
+      setCategories([...categories, ...storedCategories])
+    }
   }, [])
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { description, category } = data
     if (description === '') {
       toastr.error(t('Errors:RequiredFields', { fields: t('Description') }))
       return
     }
-
-    append({ description, category })
-    localStorage.setItem('items', JSON.stringify(getValues().items))
-    reset({ ...getValues(), description: '', category: '1' })
+    await addTask(
+      description,
+      category,
+      () => reset({ description: '', category: '1' }),
+      () => ErrorCallback()
+    )
   }
 
-  const onRemove = (index) => {
-    remove(index)
-    localStorage.setItem('items', JSON.stringify(getValues().items))
+  const onRemove = async (taskId) => {
+    await removeTask(taskId, () => ErrorCallback())
   }
 
   return (
@@ -102,7 +99,7 @@ const ToDoListForm = () => {
           <Button type="submit">{t('Add')}</Button>
         </Grid2>
       </Grid2>
-      <ToDoListItems fields={fields} onRemove={onRemove} />
+      <ToDoListItems tasks={tasks} onRemove={onRemove} />
     </>
   )
 }

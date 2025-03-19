@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-const ToDoListItems = ({ fields, onRemove }) => {
+const ToDoListItems = ({ tasks, onRemove }) => {
   const { t } = useTranslation(['Common'])
   const categories = localStorage.getItem('categories')
     ? JSON.parse(localStorage.getItem('categories'))
@@ -12,8 +12,8 @@ const ToDoListItems = ({ fields, onRemove }) => {
 
   return (
     <Grid2 sx={{ maxHeight: '50vh', overflowY: 'auto' }}>
-      {fields.map((field, index) => {
-        const { description, category } = field
+      {tasks.map((task, index) => {
+        const { task_id, description, category } = task
 
         const displayCategory = categories.find(
           (item) => item.categoryId === category
@@ -39,7 +39,7 @@ const ToDoListItems = ({ fields, onRemove }) => {
                 <Typography>{description}</Typography>
               </Grid2>
             </Grid2>
-            <Button onClick={() => onRemove(index)}>{t('Remove')}</Button>
+            <Button onClick={() => onRemove(task_id)}>{t('Remove')}</Button>
           </Grid2>
         )
       })}
@@ -48,7 +48,7 @@ const ToDoListItems = ({ fields, onRemove }) => {
 }
 
 ToDoListItems.propTypes = {
-  fields: PropTypes.array.isRequired,
+  tasks: PropTypes.array.isRequired,
   onRemove: PropTypes.func.isRequired,
 }
 
