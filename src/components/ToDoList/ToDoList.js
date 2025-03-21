@@ -29,9 +29,14 @@ const ToDoList = () => {
     toastr.error('Erro de comunicação com o servidor')
   }
 
+  const hasFetched = React.useRef(false)
+
   React.useEffect(() => {
-    fetchTasks(() => ErrorCallback())
-    fetchCategories(() => ErrorCallback())
+    if (!hasFetched.current) {
+      fetchTasks(() => ErrorCallback())
+      fetchCategories(() => ErrorCallback())
+      hasFetched.current = true
+    }
   }, [])
 
   return (
