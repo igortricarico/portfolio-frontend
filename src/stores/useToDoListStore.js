@@ -2,9 +2,9 @@ import { create } from 'zustand'
 
 const useToDoListStore = create((set) => ({
   tasks: [],
-  categories: [{ categoryId: '1', name: 'General', color: '#fff' }],
+  categories: [],
 
-  // Ação para buscar tarefas
+  // Obter tarefas
   fetchTasks: async (onError = () => {}) => {
     try {
       const response = await fetch('http://127.0.0.1:8000/tasks/')
@@ -19,20 +19,15 @@ const useToDoListStore = create((set) => ({
     }
   },
 
-  // Ação para adicionar uma tarefa
-  addTask: async (
-    description,
-    category,
-    onSuccess = () => {},
-    onError = () => {}
-  ) => {
+  // Adicionar tarefa
+  addTask: async (payload, onSuccess = () => {}, onError = () => {}) => {
     try {
       const response = await fetch('http://127.0.0.1:8000/tasks/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ description, category }),
+        body: JSON.stringify(payload),
       })
       if (!response.ok) {
         onError()
@@ -46,7 +41,7 @@ const useToDoListStore = create((set) => ({
     }
   },
 
-  // Ação para remover uma tarefa
+  // Remover tarefa
   removeTask: async (taskId, onError = () => {}) => {
     try {
       const response = await fetch(`http://127.0.0.1:8000/tasks/${taskId}`, {
@@ -64,8 +59,71 @@ const useToDoListStore = create((set) => ({
     }
   },
 
-  // Ação para definir categorias
-  setCategories: (newCategories) => set({ categories: newCategories }),
+  // Obter categorias
+  fetchCategories: async (onError = () => {}) => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/categories/')
+      if (!response.ok) {
+        onError()
+        return
+      }
+      const categories = await response.json()
+      set(() => ({
+        categories: [...categories],
+      }))
+    } catch {
+      onError()
+    }
+  },
+
+  // Adicionar categoria
+  addCategory: async (payload, onSuccess = () => {}, onError = () => {}) => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/categories/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      if (!response.ok) {
+        onError()
+        return
+      }
+      const newCategory = await response.json()
+      set((state) => ({
+        categories: [...state.categories, newCategory.category],
+      }))
+      onSuccess()
+    } catch {
+      onError()
+    }
+  },
+
+  // Atualizar categoria
+  updateCategory: async (categoryId, payload, onError = () => {}) => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/categories/${categoryId}`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }
+      )
+      if (!response.ok) {
+        onError()
+        return
+      }
+      set((state) => ({
+        categories: state.categories.map((category) =>
+          category.category_id === categoryId
+            ? { ...category, active: payload?.active }
+            : category
+        ),
+      }))
+    } catch {
+      onError()
+    }
+  },
 }))
 
 export default useToDoListStore

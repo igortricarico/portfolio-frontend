@@ -1,38 +1,28 @@
 import { Button, Grid2 } from '@mui/material'
-import { useFieldArray, useForm } from 'react-hook-form'
 
 import CategoriesItems from './CategoriesItems'
 import ColorPicker from '../Shared/FormElements/ColorPicker'
 import InputElement from '../Shared/FormElements/InputElement'
+import PropTypes from 'prop-types'
 import React from 'react'
 import toastr from 'toastr'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const CategoriesForm = () => {
+const CategoriesForm = ({
+  categories,
+  addCategory,
+  updateCategory,
+  errorCallback,
+}) => {
   const { t } = useTranslation(['Common'])
 
-  const { control, handleSubmit, reset, getValues } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       name: '',
       color: '#fff',
-      categories: [],
     },
   })
-
-  const { fields, append, update, replace } = useFieldArray({
-    control: control,
-    name: 'categories',
-  })
-
-  React.useEffect(() => {
-    if (localStorage.getItem('categories')) {
-      replace(JSON.parse(localStorage.getItem('categories')))
-    }
-  }, [])
-
-  React.useEffect(() => {
-    localStorage.setItem('categories', JSON.stringify(getValues().categories))
-  }, [fields])
 
   const onSubmit = (data) => {
     const { name, color } = data
@@ -41,14 +31,11 @@ const CategoriesForm = () => {
       return
     }
 
-    const categoryId = crypto.randomUUID()
-
-    append({ categoryId, name, color, active: true })
-    reset({ ...getValues(), name: '', color: '#fff' })
-  }
-
-  const onUpdate = (index, item) => {
-    update(index, { ...item, active: !item.active })
+    addCategory(
+      { name, color },
+      () => reset({ name: '', color: '#fff' }),
+      () => errorCallback()
+    )
   }
 
   return (
@@ -77,9 +64,20 @@ const CategoriesForm = () => {
           <Button type="submit">{t('Add')}</Button>
         </Grid2>
       </Grid2>
-      <CategoriesItems fields={fields} onUpdate={onUpdate} />
+      <CategoriesItems
+        categories={categories}
+        updateCategory={updateCategory}
+        errorCallback={errorCallback}
+      />
     </>
   )
+}
+
+CategoriesForm.propTypes = {
+  categories: PropTypes.array.isRequired,
+  addCategory: PropTypes.func.isRequired,
+  updateCategory: PropTypes.func.isRequired,
+  errorCallback: PropTypes.func.isRequired,
 }
 
 export default CategoriesForm

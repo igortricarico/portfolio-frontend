@@ -5,13 +5,34 @@ import CategoriesForm from './CategoriesForm'
 import PaperBackground from '../Shared/PaperBackground/PaperBackground'
 import React from 'react'
 import ToDoListForm from './ToDoListForm'
+import toastr from 'toastr'
+import useToDoListStore from '../../stores/useToDoListStore'
 
 const ToDoList = () => {
   const [value, setValue] = React.useState('1')
+  const {
+    tasks,
+    categories,
+    fetchTasks,
+    addTask,
+    removeTask,
+    fetchCategories,
+    addCategory,
+    updateCategory,
+  } = useToDoListStore()
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_, newValue) => {
     setValue(newValue)
   }
+
+  const ErrorCallback = () => {
+    toastr.error('Erro de comunicação com o servidor')
+  }
+
+  React.useEffect(() => {
+    fetchTasks(() => ErrorCallback())
+    fetchCategories(() => ErrorCallback())
+  }, [])
 
   return (
     <PaperBackground>
@@ -23,10 +44,21 @@ const ToDoList = () => {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <ToDoListForm />
+          <ToDoListForm
+            tasks={tasks}
+            categories={categories}
+            addTask={addTask}
+            removeTask={removeTask}
+            errorCallback={ErrorCallback}
+          />
         </TabPanel>
         <TabPanel value="2">
-          <CategoriesForm />
+          <CategoriesForm
+            categories={categories}
+            addCategory={addCategory}
+            updateCategory={updateCategory}
+            errorCallback={ErrorCallback}
+          />
         </TabPanel>
       </TabContext>
     </PaperBackground>
